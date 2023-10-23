@@ -23,3 +23,9 @@ class BasePage:
 
     def get_element_text(self, locator, wait_time=1):
         return self.get_element(locator, wait_time).text
+
+    def wait_title(self, title, wait_time=1):
+        try:
+            WebDriverWait(self.driver, wait_time).until(EC.title_is(title))
+        except TimeoutException:
+            raise AssertionError(f"Ожидаемый title: '{title}', текущий: '{self.driver.title}'")
